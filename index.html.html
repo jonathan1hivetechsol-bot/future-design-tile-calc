@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Tile Calculator Pro - ٹائل کیلکولیٹر</title>
+    <style>
+        /* --- BRANDED UI VARIABLES (Future Designz Inspired) --- */
+        :root {
+            --color-primary: #1e40af; /* Deep Corporate Blue (Headers, Structure) */
+            --color-accent: #00bcd4; /* Vibrant Cyan/Turquoise (CTA, Highlights - The "Touch") */
+            --color-background: #f8fafc; /* Very Light Blue-Gray Background */
+            --color-card-bg: #ffffff;
+            --color-text: #1f2937; /* Very Dark Text */
+            --color-light-gray: #e5e7eb;
+        }
+
+        /* General Reset and Base Styles (Branded) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-background); /* Soft background */
+            min-height: 100vh;
+            padding: 40px; 
+            display: flex; 
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--color-text);
+        }
+
+        .container {
+            background: var(--color-card-bg);
+            border-radius: 20px; 
+            /* Enhanced, professional shadow */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(0, 0, 0, 0.05); 
+            max-width: 1000px;
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.8s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* --- LOGO STYLING --- */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .brand-logo {
+            max-width: 150px; /* Set a reasonable size */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Branding Elements */
+        .premium-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--color-accent); /* Vibrant Cyan Accent */
+            color: var(--color-primary); /* Dark text on bright accent */
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4); /* Cyan Shadow */
+            white-space: nowrap; 
+        }
+
+        h1 {
+            text-align: center;
+            /* Use Primary Brand Color for the Title */
+            color: var(--color-primary); 
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Tabs Styling (Branded) */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: var(--color-light-gray);
+            padding: 6px;
+            border-radius: 12px;
+            flex-wrap: wrap; 
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            color: var(--color-text);
+            flex-grow: 1; 
+        }
+        
+        .tab:hover:not(.active) {
+            background: #E5E9F0;
+            color: var(--color-primary);
+        }
+
+        .tab.active {
+            /* Primary Brand Color Gradient */
+            background: linear-gradient(45deg, var(--color-primary) 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3); /* New Primary Blue Shadow */
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s;
+        }
+
+        /* Section & Input Styling (Branded) */
+        .section {
+            background: var(--color-card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid var(--color-light-gray);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Polished Input Fields */
+        input[type="number"], input[type="text"], select {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid var(--color-light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1); /* New Primary Blue Focus */
+            outline: none;
+        }
+
+        /* Action Buttons (Secondary Style) */
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap; 
+        }
+        .action-btns .action-btn, 
+        .quick-presets .preset-btn {
+            background: var(--color-card-bg); 
+            color: var(--color-text);
+            border: 1px solid var(--color-light-gray);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            flex-grow: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+        .action-btns .action-btn:hover, 
+        .quick-presets .preset-btn:hover {
+            background: #f0f4f8;
+            border-color: #cdd5e0;
+        }
+
+        /* Shape/Pattern Buttons (Toggle Style) */
+        .shape-btn, .pattern-btn {
+            background: var(--color-card-bg);
+            color: var(--color-text);
+            border: 1px solid var(--color-light-gray);
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            flex-grow: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .shape-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; 
+        }
+        .shape-btn.active, .pattern-btn.active {
+            /* Active Toggle Style: Primary Brand Color */
+            border: 2px solid var(--color-primary);
+            background: #eff6ff; /* Light blue tint */
+            color: var(--color-primary);
+            box-shadow: 0 0 0 1px var(--color-primary) inset, 0 4px 10px rgba(30, 64, 175, 0.1);
+        }
+        .pattern-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        /* Main CTA Button (Accent Brand Color) */
+        .calculate-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 30px;
+            border: none;
+            border-radius: 12px;
+            /* Vibrant Accent Cyan Gradient */
+            background: linear-gradient(90deg, var(--color-accent) 0%, #4dd3e2 100%); 
+            color: var(--color-primary); /* Dark text on bright button */
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4); /* Cyan Shadow */
+            letter-spacing: 0.5px;
+        }
+        .calculate-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 188, 212, 0.5); /* Stronger Cyan Shadow */
+        }
+
+        /* Results Area (Branded) */
+        .results {
+            /* Primary Brand Color Gradient for Results */
+            background: linear-gradient(135deg, var(--color-primary) 0%, #4c68d1 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            display: none;
+            box-shadow: 0 15px 50px rgba(30, 64, 175, 0.5); /* New Primary Blue Shadow */
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.6s;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Individual Result Card (Premium Look) */
+        .result-grid .result-card {
+            background: rgba(255, 255, 255, 0.15); /* Light translucent background */
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .result-grid .result-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        .result-value {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        /* Success Message */
+        .success-message {
+            margin-top: 20px;
+            padding: 10px;
+            background: #d1fae5;
+            color: #065f46;
+            border-radius: 8px;
+            border: 1px solid #a7f3d0;
+            text-align: center;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .success-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 10px;
+        }
+
+        /* --- RESPONSIVENESS (MOBILE-FIRST ENHANCEMENT) --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px; 
+                min-height: auto; 
+                display: block; 
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 10px; 
+            }
+
+            .premium-badge {
+                top: 15px;
+                right: 15px;
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+
+            h1 {
+                font-size: 1.8rem; 
+                margin-top: 10px;
+            }
+
+            /* Responsive Tabs */
+            .tabs {
+                gap: 5px; 
+                padding: 4px;
+            }
+            .tab {
+                padding: 10px 15px; 
+                font-size: 0.9rem;
+                flex-basis: calc(50% - 5px); 
+                min-width: unset;
+            }
+
+            .section {
+                padding: 20px;
+            }
+            
+            /* Stack input rows and make them full width */
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            input[type="number"], input[type="text"], select {
+                width: 100%; 
+                min-width: unset;
+                padding: 12px;
+            }
+
+            .calculate-btn {
+                font-size: 1.1rem;
+                padding: 16px;
+            }
+            
+            /* Responsive Results Grid */
+            .results {
+                padding: 25px;
+            }
+            .result-grid {
+                grid-template-columns: 1fr; /* Stack results in one column */
+                gap: 15px;
+            }
+            
+            .result-value {
+                font-size: 1.5rem;
+            }
+
+            /* Stack action buttons and presets */
+            .action-btns, .quick-presets, .shape-selector {
+                gap: 8px;
+            }
+
+            .quick-presets .preset-btn, .shape-selector .shape-btn {
+                flex-basis: calc(50% - 4px); /* Two buttons per row */
+                min-width: unset;
+            }
+            
+            .pattern-options {
+                grid-template-columns: 1fr 1fr; /* Two columns for patterns */
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+            }
+            .tabs, .premium-badge, .calculate-btn, .action-btns, .quick-presets, details, #success-msg {
+                display: none !important;
+            }
+            .results {
+                position: static;
+                margin-top: 0;
+                box-shadow: none;
+                background: #ffffff !important; 
+                color: #333 !important;
+                border: 1px solid #ccc;
+            }
+            .result-grid {
+                grid-template-columns: 1fr 1fr; 
+            }
+            .result-card {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border: 1px solid #ddd !important;
+            }
+            .extra-info {
+                color: #555 !important;
+            }
+            .cost-section {
+                border-top: 2px dashed #ccc;
+                padding-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="premium-badge">PRO VERSION</div>
+        
+        <div class="logo-container">
+            <img src="https://futuredesignz.com/wp-content/uploads/2022/12/future-designs-logo1.png" alt="Future Designz Logo" class="brand-logo">
+        </div>
+        <h1>Premium Tile Calculator Pro</h1>
+        <p class="subtitle">Professional-grade tile estimation with advanced features</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('basic')">Basic Calculator</button>
+            <button class="tab" onclick="switchTab('advanced')">Advanced Tools</button>
+            <button class="tab" onclick="switchTab('cost')">Cost Analysis</button>
+        </div>
+
+        <div id="basic" class="tab-content active">
+
+            <details>
+                <summary>
+                    <span>How to Use This Calculator (English Guide)</span>
+                </summary>
+                <div class="guide-content">
+                    <div class="guide-step">
+                        <h4>1. Select Room Shape</h4>
+                        <p>Choose the shape of the room you are tiling. This ensures the correct mathematical formula is used for calculating the total area (e.g., Rectangle, Square, Circle).</p>
+                    </div>
+                    <div class="guide-step">
+                        <h4>2. Room Dimensions</h4>
+                        <p>Enter the measurements (Length, Width, or Radius/Base/Height) of the area to be tiled. **Crucially, select the correct unit (Meters, Feet, Centimeters, Inches) next to each input field** to ensure accurate conversion.</p>
+                    </div>
+                    <div class="guide-step">
+                        <h4>3. Tile Size</h4>
+                        <p>Input the exact Length and Width of the tile you are using. Again, select the correct measurement unit. Standard sizes are provided as quick presets.</p>
+                    </div>
+                    <div class="guide-step">
+                        <h4>4. Wastage & Grout Settings</h4>
+                        <p>Adjust these settings for precision:</p>
+                        <ul>
+                            <li>**Wastage:** The extra percentage of tiles you need to account for cuts, breakages, and alignment errors (typically 10%).</li>
+                            <li>**Grout Gap:** The spacing between tiles, usually in millimeters (mm). This affects the overall number of tiles slightly.</li>
+                            <li>**Tiles per Box:** Enter the number of tiles sold in one box from your supplier.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-step">
+                        <h4>5. Calculate and Analyze</h4>
+                        <p>Click **"Calculate Tiles Now"** for the required tile count and number of boxes. Use the **Cost Analysis** tab to get a full budget estimate, including labor and materials.</p>
+                    </div>
+                </div>
+            </details>
+            <div class="section">
+                <div class="section-title">1. Select Room Shape</div>
+                <div class="shape-selector">
+                    <button class="shape-btn active" data-shape="rectangle">Rectangle</button>
+                    <button class="shape-btn" data-shape="square">Square</button>
+                    <button class="shape-btn" data-shape="circle">Circle</button>
+                    <button class="shape-btn" data-shape="triangle">Triangle</button>
+                    <button class="shape-btn" data-shape="lshape">L-Shape</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">2. Room Dimensions</div>
+                
+                <div class="input-group" id="length-group">
+                    <label>Length / لمبائی</label>
+                    <div class="input-row">
+                        <input type="number" id="length" placeholder="Enter length" step="0.01" min="0">
+                        <select id="length-unit">
+                            <option value="m">Meters (m)</option>
+                            <option value="ft" selected>Feet (ft)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" id="width-group">
+                    <label>Width / چوڑائی</label>
+                    <div class="input-row">
+                        <input type="number" id="width" placeholder="Enter width" step="0.01" min="0">
+                        <select id="width-unit">
+                            <option value="m">Meters (m)</option>
+                            <option value="ft" selected>Feet (ft)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" id="radius-group" style="display: none;">
+                    <label>Radius / رداس</label>
+                    <div class="input-row">
+                        <input type="number" id="radius" placeholder="Enter radius" step="0.01" min="0">
+                        <select id="radius-unit">
+                            <option value="m">Meters (m)</option>
+                            <option value="ft" selected>Feet (ft)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" id="height-group" style="display: none;">
+                    <label>Height / اونچائی</label>
+                    <div class="input-row">
+                        <input type="number" id="height" placeholder="Enter height" step="0.01" min="0">
+                        <select id="height-unit">
+                            <option value="m">Meters (m)</option>
+                            <option value="ft" selected>Feet (ft)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in">Inches (in)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="lshape-group" style="display: none;">
+                    <div class="input-group">
+                        <label>Section A - Length</label>
+                        <div class="input-row">
+                            <input type="number" id="lshape-length1" placeholder="Enter length" step="0.01" min="0">
+                            <select id="lshape-unit1">
+                                <option value="m">Meters</option>
+                                <option value="ft" selected>Feet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Section A - Width</label>
+                        <div class="input-row">
+                            <input type="number" id="lshape-width1" placeholder="Enter width" step="0.01" min="0">
+                            <select id="lshape-unit2">
+                                <option value="m">Meters</option>
+                                <option value="ft" selected>Feet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Section B - Length</label>
+                        <div class="input-row">
+                            <input type="number" id="lshape-length2" placeholder="Enter length" step="0.01" min="0">
+                            <select id="lshape-unit3">
+                                <option value="m">Meters</option>
+                                <option value="ft" selected>Feet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Section B - Width</label>
+                        <div class="input-row">
+                            <input type="number" id="lshape-width2" placeholder="Enter width" step="0.01" min="0">
+                            <select id="lshape-unit4">
+                                <option value="m">Meters</option>
+                                <option value="ft" selected>Feet</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-presets action-btns">
+                    <strong>Quick Presets:</strong>
+                    <button class="preset-btn" onclick="applyPreset(10, 12, 'ft')">10x12 ft</button>
+                    <button class="preset-btn" onclick="applyPreset(12, 14, 'ft')">12x14 ft</button>
+                    <button class="preset-btn" onclick="applyPreset(15, 18, 'ft')">15x18 ft</button>
+                    <button class="preset-btn" onclick="applyPreset(3, 4, 'm')">3x4 m</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">3. Tile Size</div>
+                
+                <div class="input-group">
+                    <label>Tile Length / ٹائل کی لمبائی</label>
+                    <div class="input-row">
+                        <input type="number" id="tile-length" placeholder="Enter tile length" step="0.01" min="0" value="24">
+                        <select id="tile-length-unit">
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in" selected>Inches (in)</option>
+                            <option value="m">Meters (m)</option>
+                            <option value="ft">Feet (ft)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Tile Width / ٹائل کی چوڑائی</label>
+                    <div class="input-row">
+                        <input type="number" id="tile-width" placeholder="Enter tile width" step="0.01" min="0" value="24">
+                        <select id="tile-width-unit">
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="in" selected>Inches (in)</option>
+                            <option value="m">Meters (m)</option>
+                            <option value="ft">Feet (ft)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quick-presets action-btns">
+                    <strong>Common Sizes:</strong>
+                    <button class="preset-btn" onclick="applyTilePreset(12, 12, 'in')">12"×12"</button>
+                    <button class="preset-btn" onclick="applyTilePreset(18, 18, 'in')">18"×18"</button>
+                    <button class="preset-btn" onclick="applyTilePreset(24, 24, 'in')">24"×24"</button>
+                    <button class="preset-btn" onclick="applyTilePreset(30, 30, 'cm')">30×30 cm</button>
+                    <button class="preset-btn" onclick="applyTilePreset(60, 60, 'cm')">60×60 cm</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">4. Wastage & Grout Settings</div>
+                
+                <div class="input-group">
+                    <label>Wastage / ضائع (Cutting & Breakage)</label>
+                    <div class="slider-container">
+                        <input type="range" id="wastage" min="0" max="30" value="10" step="1">
+                        <span class="wastage-value"><span id="wastage-value">10</span>%</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Grout Gap Size (mm)</label>
+                    <div class="input-row">
+                        <input type="number" id="grout-gap" value="2" min="0" max="10" step="0.5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Tiles per Box</label>
+                    <div class="input-row">
+                        <input type="number" id="tiles-per-box" value="10" min="1" step="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-btns">
+                <button class="action-btn" onclick="saveCalculation()">Save Project</button>
+                <button class="action-btn" onclick="loadCalculation()">Load Project</button>
+                <button class="action-btn" onclick="resetAll()">Reset All</button>
+                <button class="action-btn" onclick="printResults()">Print</button>
+            </div>
+
+            <div class="success-message" id="success-msg"></div>
+
+            <button class="calculate-btn" onclick="calculateTiles()">Calculate Tiles Now</button>
+        </div>
+
+        <div id="advanced" class="tab-content">
+            <div class="section">
+                <div class="section-title">Tile Pattern Calculator</div>
+                <p style="margin-bottom: 15px; color: #666;">Different patterns require different amounts of tiles and wastage</p>
+                
+                <div class="pattern-options">
+                    <button class="pattern-btn active" data-pattern="straight" data-wastage="5">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">Straight</div>
+                        Straight<br><small>(+5% wastage)</small>
+                    </button>
+                    <button class="pattern-btn" data-pattern="diagonal" data-wastage="15">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">Diagonal</div>
+                        Diagonal<br><small>(+15% wastage)</small>
+                    </button>
+                    <button class="pattern-btn" data-pattern="herringbone" data-wastage="20">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">Herringbone</div>
+                        Herringbone<br><small>(+20% wastage)</small>
+                    </button>
+                    <button class="pattern-btn" data-pattern="basketweave" data-wastage="15">
+                        <div style="font-size: 1.5rem; margin-bottom: 5px;">Basketweave</div>
+                        Basketweave<br><small>(+15% wastage)</small>
+                    </button>
+                </div>
+
+                <div class="input-group" style="margin-top: 20px;">
+                    <label>Pattern-Adjusted Wastage: <span id="pattern-wastage">5</span>%</label>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">This will be used in calculations when using pattern mode</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Multi-Room Calculator</div>
+                <p style="margin-bottom: 15px; color: #666;">Calculate tiles needed for multiple rooms at once</p>
+                
+                <div id="room-list"></div>
+                
+                <div class="action-btns" style="margin-top: 15px;">
+                    <button class="action-btn" onclick="addRoom()">Add Room</button>
+                    <button class="action-btn" onclick="calculateMultiRoom()">Calculate All</button>
+                    <button class="action-btn" onclick="clearRooms()">Clear All</button>
+                </div>
+
+                <div id="multi-room-results" style="margin-top: 20px;"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Border & Accent Calculator</div>
+                <p style="margin-bottom: 15px; color: #666;">Calculate border tiles around the perimeter</p>
+                
+                <div class="input-group">
+                    <label>Border Width (tiles)</label>
+                    <div class="input-row">
+                        <input type="number" id="border-width" value="1" min="1" max="10" step="1">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Border Tile Size (inches)</label>
+                    <div class="input-row">
+                        <input type="number" id="border-tile-size" value="6" min="1" step="0.5">
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateBorder()" style="margin-top: 15px;">Calculate Border Tiles</button>
+                
+                <div id="border-results" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div id="cost" class="tab-content">
+            <div class="section">
+                <div class="section-title">Tile Cost Calculator</div>
+                
+                <div class="input-group">
+                    <label>Price per Tile (PKR/USD)</label>
+                    <div class="input-row">
+                        <input type="number" id="tile-price" placeholder="Enter price per tile" step="0.01" min="0" value="50">
+                        <select id="currency">
+                            <option value="PKR">PKR (₨)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Or Price per Box</label>
+                    <div class="input-row">
+                        <input type="number" id="box-price" placeholder="Enter price per box" step="0.01" min="0">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Labor Cost per Sq Ft</label>
+                    <div class="input-row">
+                        <input type="number" id="labor-cost" placeholder="Enter labor cost" step="0.01" min="0" value="5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Adhesive Cost (per bag)</label>
+                    <div class="input-row">
+                        <input type="number" id="adhesive-cost" value="800" step="1" min="0">
+                        <span style="font-size: 0.9rem; color: #666; margin-left: 10px;">(1 bag covers ~100 sq ft)</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Grout Cost (per bag)</label>
+                    <div class="input-row">
+                        <input type="number" id="grout-cost" value="500" step="1" min="0">
+                        <span style="font-size: 0.9rem; color: #666; margin-left: 10px;">(1 bag covers ~150 sq ft)</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateCost()">Calculate Total Cost</button>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Cost Comparison</div>
+                <p style="margin-bottom: 15px; color: #666;">Compare different tile options side by side</p>
+                
+                <div class="comparison-table" id="cost-comparison">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f0f4f8;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Item</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Quantity</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Unit Cost</th>
+                                <th style="padding: 12px; text-align: right; border: 1px solid #ddd;">Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparison-body">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: #999; padding: 20px; border: 1px solid #ddd;">Calculate tiles first to see cost breakdown</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="action-btns" style="margin-top: 20px;">
+                    <button class="action-btn" onclick="exportToPDF()">Export PDF</button>
+                    <button class="action-btn" onclick="exportToExcel()">Export Excel</button>
+                    <button class="action-btn" onclick="shareCalculation()">Share</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results" id="results">
+            <h2 style="margin-bottom: 25px; font-size: 1.8rem;">Calculation Results</h2>
+            
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="result-label">Total Area</div>
+                    <div class="result-value" id="total-area">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Tiles Needed</div>
+                    <div class="result-value" id="tiles-needed">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">With Wastage</div>
+                    <div class="result-value" id="tiles-with-wastage">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Boxes Needed</div>
+                    <div class="result-value" id="boxes-needed">-</div>
+                </div>
+            </div>
+
+            <div class="cost-section" id="cost-breakdown" style="display: none;">
+                <h3 style="margin-bottom: 15px; font-size: 1.3rem;">Cost Breakdown</h3>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <div class="result-label">Tile Cost</div>
+                        <div class="result-value" id="total-tile-cost">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Labor Cost</div>
+                        <div class="result-value" id="total-labor-cost">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Materials</div>
+                        <div class="result-value" id="total-materials-cost">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Grand Total</div>
+                        <div class="result-value" id="grand-total">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="extra-info">
+                <p style="font-weight: 700; margin-bottom: 10px; font-size: 1.1rem;">Pro Tips:</p>
+                <ul style="line-height: 1.8; padding-left: 20px;">
+                    <li>Always order 5-10% extra tiles for future repairs</li>
+                    <li>Store extra tiles in a dry place with their box/label</li>
+                    <li>For diagonal patterns, order 15-20% more tiles</li>
+                    <li>Check tiles from same batch for color consistency</li>
+                    <li>Consider grout color - it affects the final look significantly</li>
+                    <li id="ratio-tip" style="display:none;"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentShape = 'rectangle';
+        let currentPattern = 'straight';
+        let calculationData = null;
+        let roomCounter = 1;
+
+        // Tab Switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Check if the event object is available (for button click) or we are switching programmatically
+            const targetElement = event ? event.target : document.querySelector(`.tab[onclick*="${tabName}"]`);
+            if (targetElement) {
+                targetElement.classList.add('active');
+            }
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Shape Selection
+        document.querySelectorAll('.shape-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentShape = this.dataset.shape;
+                updateFormFields();
+            });
+        });
+
+        // Pattern Selection
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.pattern-btn')) {
+                const btn = e.target.closest('.pattern-btn');
+                document.querySelectorAll('.pattern-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentPattern = btn.dataset.pattern;
+                const wastage = btn.dataset.wastage;
+                document.getElementById('pattern-wastage').textContent = wastage;
+            }
+        });
+
+        // Wastage Slider
+        document.getElementById('wastage').addEventListener('input', function() {
+            document.getElementById('wastage-value').textContent = this.value;
+        });
+
+        function updateFormFields() {
+            const lengthGroup = document.getElementById('length-group');
+            const widthGroup = document.getElementById('width-group');
+            const radiusGroup = document.getElementById('radius-group');
+            const heightGroup = document.getElementById('height-group');
+            const lshapeGroup = document.getElementById('lshape-group');
+
+            lengthGroup.style.display = 'none';
+            widthGroup.style.display = 'none';
+            radiusGroup.style.display = 'none';
+            heightGroup.style.display = 'none';
+            lshapeGroup.style.display = 'none';
+
+            const lengthLabel = document.querySelector('#length-group label');
+            
+            switch(currentShape) {
+                case 'rectangle':
+                    lengthGroup.style.display = 'block';
+                    widthGroup.style.display = 'block';
+                    lengthLabel.innerHTML = 'Length / لمبائی';
+                    break;
+                case 'square':
+                    lengthGroup.style.display = 'block';
+                    lengthLabel.innerHTML = 'Side Length / اطراف';
+                    break;
+                case 'circle':
+                    radiusGroup.style.display = 'block';
+                    break;
+                case 'triangle':
+                    lengthGroup.style.display = 'block';
+                    heightGroup.style.display = 'block';
+                    lengthLabel.innerHTML = 'Base / بنیاد';
+                    break;
+                case 'lshape':
+                    lshapeGroup.style.display = 'block';
+                    break;
+            }
+        }
+
+        const UNIT_CONVERSIONS = {
+            'm': 1,
+            'ft': 0.3048,
+            'cm': 0.01,
+            'in': 0.0254
+        };
+
+        function convertToMeters(value, unit) {
+            return value * UNIT_CONVERSIONS[unit];
+        }
+
+        function convertToSqFt(sqMeters) {
+            return sqMeters * 10.7639; // 1 m² = 10.7639 sq ft (using more precision)
+        }
+
+        /**
+         * New helper function to get a dimension in a specific target unit (e.g., 'ft' or 'in').
+         * @param {string} valueId - The ID of the input field.
+         * @param {string} unitId - The ID of the unit select field.
+         * @param {string} targetUnit - The desired output unit ('m', 'ft', 'in', 'cm').
+         * @returns {number} The converted dimension value.
+         */
+        function getDimensionInUnit(valueId, unitId, targetUnit) {
+            const value = parseFloat(document.getElementById(valueId).value) || 0;
+            const unit = document.getElementById(unitId).value;
+            
+            // Convert to meters first
+            const meters = convertToMeters(value, unit);
+            
+            // Convert meters to target unit
+            if (targetUnit === 'm') return meters;
+            if (targetUnit === 'ft') return meters / UNIT_CONVERSIONS['ft'];
+            if (targetUnit === 'in') return meters / UNIT_CONVERSIONS['in'];
+            if (targetUnit === 'cm') return meters / UNIT_CONVERSIONS['cm'];
+            
+            return meters; // Default to meters
+        }
+
+
+        function calculateArea() {
+            let area = 0; // Area in square meters (m²)
+            
+            switch(currentShape) {
+                case 'rectangle':
+                    const length = getDimensionInUnit('length', 'length-unit', 'm');
+                    const width = getDimensionInUnit('width', 'width-unit', 'm');
+                    area = length * width;
+                    break;
+                    
+                case 'square':
+                    const side = getDimensionInUnit('length', 'length-unit', 'm');
+                    area = side * side;
+                    break;
+                    
+                case 'circle':
+                    const radius = getDimensionInUnit('radius', 'radius-unit', 'm');
+                    area = Math.PI * radius * radius;
+                    break;
+                    
+                case 'triangle':
+                    const base = getDimensionInUnit('length', 'length-unit', 'm');
+                    const height = getDimensionInUnit('height', 'height-unit', 'm');
+                    area = 0.5 * base * height;
+                    break;
+
+                case 'lshape':
+                    // Note: L-Shape uses dedicated ft/m unit selectors, which we read directly
+                    const l1 = convertToMeters(
+                        parseFloat(document.getElementById('lshape-length1').value || 0),
+                        document.getElementById('lshape-unit1').value
+                    );
+                    const w1 = convertToMeters(
+                        parseFloat(document.getElementById('lshape-width1').value || 0),
+                        document.getElementById('lshape-unit2').value
+                    );
+                    const l2 = convertToMeters(
+                        parseFloat(document.getElementById('lshape-length2').value || 0),
+                        document.getElementById('lshape-unit3').value
+                    );
+                    const w2 = convertToMeters(
+                        parseFloat(document.getElementById('lshape-width2').value || 0),
+                        document.getElementById('lshape-unit4').value
+                    );
+                    area = (l1 * w1) + (l2 * w2);
+                    break;
+            }
+            
+            return area;
+        }
+
+        function calculateTiles() {
+            try {
+                const roomArea = calculateArea();
+                
+                if (roomArea <= 0 || isNaN(roomArea)) {
+                    alert('Please enter valid room dimensions!');
+                    return;
+                }
+
+                // Tile dimensions converted to meters (m)
+                const tileLength = getDimensionInUnit('tile-length', 'tile-length-unit', 'm');
+                const tileWidth = getDimensionInUnit('tile-width', 'tile-width-unit', 'm');
+
+                if (tileLength <= 0 || tileWidth <= 0 || isNaN(tileLength) || isNaN(tileWidth)) {
+                    alert('Please enter valid tile dimensions!');
+                    return;
+                }
+
+                const tileArea = tileLength * tileWidth; // Area in m²
+                const tilesNeeded = Math.ceil(roomArea / tileArea);
+                const wastagePercent = parseInt(document.getElementById('wastage').value);
+                const tilesWithWastage = Math.ceil(tilesNeeded * (1 + wastagePercent / 100));
+                const tilesPerBox = parseInt(document.getElementById('tiles-per-box').value) || 10;
+                const boxesNeeded = Math.ceil(tilesWithWastage / tilesPerBox);
+                const groutGapMeters = (parseFloat(document.getElementById('grout-gap').value) || 0) / 1000;
+
+                // Store calculation data
+                calculationData = {
+                    roomArea, // m²
+                    tilesNeeded,
+                    tilesWithWastage,
+                    boxesNeeded,
+                    tilesPerBox,
+                    tileArea, // m²
+                    tileLength, // m
+                    tileWidth, // m
+                    groutGapMeters
+                };
+
+                // Display results
+                document.getElementById('total-area').textContent = roomArea.toFixed(2) + ' m² (' + convertToSqFt(roomArea).toFixed(2) + ' sq ft)';
+                document.getElementById('tiles-needed').textContent = tilesNeeded.toLocaleString();
+                document.getElementById('tiles-with-wastage').textContent = tilesWithWastage.toLocaleString();
+                document.getElementById('boxes-needed').textContent = boxesNeeded.toLocaleString();
+
+                document.getElementById('results').classList.add('show');
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Call new ratio feature
+                calculateRatio();
+
+                // Auto-calculate cost if cost data is entered
+                if (document.getElementById('tile-price').value || document.getElementById('box-price').value) {
+                    calculateCost();
+                }
+            } catch (error) {
+                alert('An error occurred. Please check all fields and try again.');
+                console.error(error);
+            }
+        }
+
+        /**
+         * Calculates the ratio of Tile Area to Grout Area for a single tile.
+         */
+        function calculateRatio() {
+            if (!calculationData) {
+                return;
+            }
+
+            const { tileLength, tileWidth, groutGapMeters } = calculationData;
+
+            // Tile Area (in m²)
+            const areaOfSingleTile = tileLength * tileWidth;
+
+            // Area with Grout (outer dimensions) (in m²)
+            const totalAreaPerTileWithGrout = (tileLength + groutGapMeters) * (tileWidth + groutGapMeters);
+
+            // Grout Area (in m²)
+            const groutAreaPerTile = totalAreaPerTileWithGrout - areaOfSingleTile;
+
+            // Ratio (Area of Tile) / (Area of Grout)
+            let ratio = (areaOfSingleTile / groutAreaPerTile).toFixed(1);
+            
+            // Update the Pro Tips section
+            const ratioTip = document.getElementById('ratio-tip');
+            ratioTip.textContent = `Tile-to-Grout Ratio: 1 : ${ratio} (Tile Area : Grout Area). For a clean look, aim for a ratio above 10:1.`;
+            ratioTip.style.display = 'list-item';
+        }
+
+
+        function calculateCost() {
+            if (!calculationData) {
+                alert('Please calculate tiles first!');
+                return;
+            }
+
+            const tilePrice = parseFloat(document.getElementById('tile-price').value) || 0;
+            const boxPrice = parseFloat(document.getElementById('box-price').value) || 0;
+            const laborCost = parseFloat(document.getElementById('labor-cost').value) || 0;
+            const adhesiveCost = parseFloat(document.getElementById('adhesive-cost').value) || 800;
+            const groutCost = parseFloat(document.getElementById('grout-cost').value) || 500;
+            const currency = document.getElementById('currency').value;
+
+            let tileCost = 0;
+            if (boxPrice > 0) {
+                tileCost = boxPrice * calculationData.boxesNeeded;
+            } else {
+                tileCost = tilePrice * calculationData.tilesWithWastage;
+            }
+
+            const areaInSqFt = convertToSqFt(calculationData.roomArea);
+            const totalLaborCost = laborCost * areaInSqFt;
+            
+            const adhesiveBags = Math.ceil(areaInSqFt / 100);
+            const groutBags = Math.ceil(areaInSqFt / 150);
+            const materialsCost = (adhesiveBags * adhesiveCost) + (groutBags * groutCost);
+
+            const grandTotal = tileCost + totalLaborCost + materialsCost;
+
+            // FIXED: Corrected currency symbol logic
+            const currencySymbol = currency === 'PKR' ? '₨' : currency === 'USD' ? '$' : '€';
+
+            document.getElementById('total-tile-cost').textContent = currencySymbol + tileCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('total-labor-cost').textContent = currencySymbol + totalLaborCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('total-materials-cost').textContent = currencySymbol + materialsCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('grand-total').textContent = currencySymbol + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('cost-breakdown').style.display = 'block';
+
+            // Update comparison table
+            updateComparisonTable(tileCost, totalLaborCost, materialsCost, adhesiveBags, groutBags, currencySymbol);
+        }
+
+        function updateComparisonTable(tileCost, laborCost, materialsCost, adhesiveBags, groutBags, symbol) {
+            const tbody = document.getElementById('comparison-body');
+            tbody.innerHTML = `
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Tiles</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${calculationData.tilesWithWastage.toLocaleString()} tiles (${calculationData.boxesNeeded} boxes)</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${symbol}${(tileCost / calculationData.tilesWithWastage).toFixed(2)}/tile</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; text-align: right;"><strong>${symbol}${tileCost.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Labor</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${convertToSqFt(calculationData.roomArea).toFixed(2)} sq ft</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${symbol}${document.getElementById('labor-cost').value}/sq ft</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; text-align: right;"><strong>${symbol}${laborCost.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Adhesive</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${adhesiveBags} bags</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${symbol}${document.getElementById('adhesive-cost').value}/bag</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; text-align: right;"><strong>${symbol}${(adhesiveBags * parseFloat(document.getElementById('adhesive-cost').value)).toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Grout</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${groutBags} bags</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">${symbol}${document.getElementById('grout-cost').value}/bag</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; text-align: right;"><strong>${symbol}${(groutBags * parseFloat(document.getElementById('grout-cost').value)).toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+                <tr style="background: #e9f0ff; font-weight: 700;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>TOTAL PROJECT COST</strong></td>
+                    <td colspan="2" style="padding: 12px; border: 1px solid #ddd;"></td>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-size: 1.2rem; color: var(--color-primary); text-align: right;"><strong>${symbol}${(tileCost + laborCost + materialsCost).toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+            `;
+        }
+
+        function calculateBorder() {
+            if (!calculationData) {
+                alert('Please calculate main tiles first!');
+                return;
+            }
+
+            const borderWidth = parseInt(document.getElementById('border-width').value) || 1;
+            const borderTileSize = parseFloat(document.getElementById('border-tile-size').value) / 12; // Convert to feet
+
+            let roomPerimeterInFeet = 0;
+
+            // FIXED: Calculate perimeter correctly based on shape and units
+            switch(currentShape) {
+                case 'rectangle':
+                case 'square':
+                    const roomLength = getDimensionInUnit('length', 'length-unit', 'ft');
+                    const roomWidth = getDimensionInUnit('width', 'width-unit', 'ft');
+                    roomPerimeterInFeet = 2 * (roomLength + roomWidth);
+                    break;
+                case 'circle':
+                    const radius = getDimensionInUnit('radius', 'radius-unit', 'ft');
+                    roomPerimeterInFeet = 2 * Math.PI * radius;
+                    break;
+                case 'triangle':
+                    // This calculation is complex without all 3 sides. We approximate by two sides for simplicity, but alert user.
+                    alert('Border calculation for Triangle/L-Shape is an approximation based on basic dimensions. For true perimeter, measure all sides.');
+                    const base = getDimensionInUnit('length', 'length-unit', 'ft');
+                    const height = getDimensionInUnit('height', 'height-unit', 'ft');
+                    roomPerimeterInFeet = base + height; // Simple sum, not a true perimeter.
+                    break;
+                case 'lshape':
+                     alert('Border calculation for Triangle/L-Shape is an approximation based on basic dimensions. For true perimeter, measure all sides.');
+                    // L-Shape is too complex without 6 sides. Skip for now and rely on alert.
+                    roomPerimeterInFeet = 0; 
+                    break;
+            }
+
+            if (roomPerimeterInFeet <= 0 || isNaN(roomPerimeterInFeet)) {
+                 document.getElementById('border-results').innerHTML = `
+                    <div class="result-card" style="background: #dc3545; color: white; padding: 20px; border-radius: 15px;">
+                        <h3 style="margin-bottom: 15px;">Border Tiles Needed</h3>
+                        <p style="font-size: 1.2rem; font-weight: 600;">Cannot calculate accurate perimeter for selected shape.</p>
+                        <p style="opacity: 0.9; font-size: 0.9rem;">Please use Rectangle or Circle for best Border calculation, or manually measure perimeter.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const borderTilesNeeded = Math.ceil((roomPerimeterInFeet / borderTileSize) * borderWidth);
+            const borderWithWastage = Math.ceil(borderTilesNeeded * 1.1); // 10% wastage for borders
+
+            document.getElementById('border-results').innerHTML = `
+                <div class="result-card" style="background: linear-gradient(45deg, var(--color-primary) 0%, #4c68d1 100%); color: white; padding: 20px; border-radius: 15px;">
+                    <h3 style="margin-bottom: 15px;">Border Tiles Needed</h3>
+                    <p style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">${borderWithWastage.toLocaleString()} tiles</p>
+                    <p style="opacity: 0.9;">Perimeter: ${roomPerimeterInFeet.toFixed(2)} ft | Without wastage: ${borderTilesNeeded} tiles</p>
+                </div>
+            `;
+        }
+
+        // Multi-room calculator
+        function addRoom() {
+            const roomList = document.getElementById('room-list');
+            const roomDiv = document.createElement('div');
+            roomDiv.className = 'input-group';
+            roomDiv.style.background = '#fcfcfc'; /* Very light background for room entry */
+            roomDiv.style.padding = '15px';
+            roomDiv.style.borderRadius = '10px';
+            roomDiv.style.marginBottom = '15px';
+            roomDiv.style.border = '1px dashed #ddd';
+            roomDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <strong>Room ${roomCounter}</strong>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; transition: all 0.2s;">Remove</button>
+                </div>
+                <div class="input-row">
+                    <input type="number" class="room-length" placeholder="Length (ft)" step="0.01" min="0">
+                    <input type="number" class="room-width" placeholder="Width (ft)" step="0.01" min="0">
+                </div>
+            `;
+            roomList.appendChild(roomDiv);
+            roomCounter++;
+        }
+
+        function calculateMultiRoom() {
+            const rooms = document.querySelectorAll('#room-list > div');
+            if (rooms.length === 0) {
+                alert('Please add rooms first!');
+                return;
+            }
+
+            let totalAreaSqFt = 0;
+            let roomDetails = [];
+
+            rooms.forEach((room, index) => {
+                const length = parseFloat(room.querySelector('.room-length').value) || 0;
+                const width = parseFloat(room.querySelector('.room-width').value) || 0;
+                const area = length * width;
+                totalAreaSqFt += area;
+                roomDetails.push({ room: index + 1, length, width, area });
+            });
+
+            // Convert total area to square meters
+            const totalAreaMeters = totalAreaSqFt * UNIT_CONVERSIONS['ft'] * UNIT_CONVERSIONS['ft']; 
+
+            // Tile dimensions converted to meters (m)
+            const tileLength = getDimensionInUnit('tile-length', 'tile-length-unit', 'm');
+            const tileWidth = getDimensionInUnit('tile-width', 'tile-width-unit', 'm');
+            const tileArea = tileLength * tileWidth;
+
+            if (tileArea <= 0 || isNaN(tileArea)) {
+                 alert('Please enter valid tile dimensions in the Basic Calculator tab!');
+                return;
+            }
+            
+            const tilesNeeded = Math.ceil(totalAreaMeters / tileArea);
+            const wastage = parseInt(document.getElementById('wastage').value) || 10;
+            const tilesWithWastage = Math.ceil(tilesNeeded * (1 + wastage / 100));
+            const tilesPerBox = parseInt(document.getElementById('tiles-per-box').value) || 10;
+            const boxesNeeded = Math.ceil(tilesWithWastage / tilesPerBox);
+
+            let resultsHTML = `
+                <div style="background: linear-gradient(45deg, var(--color-primary) 0%, #4c68d1 100%); color: white; padding: 25px; border-radius: 15px;">
+                    <h3 style="margin-bottom: 20px;">Multi-Room Results</h3>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        ${roomDetails.map(r => `<p><strong>Room ${r.room}:</strong> ${r.length} × ${r.width} ft = ${r.area.toFixed(2)} sq ft</p>`).join('')}
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Total Area</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;">${totalAreaSqFt.toFixed(2)} sq ft</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Tiles Needed</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;">${tilesWithWastage.toLocaleString()}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Boxes Needed</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;">${boxesNeeded}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('multi-room-results').innerHTML = resultsHTML;
+        }
+
+        function clearRooms() {
+            document.getElementById('room-list').innerHTML = '';
+            document.getElementById('multi-room-results').innerHTML = '';
+            roomCounter = 1;
+            addRoom(); // Add one room back
+        }
+
+        // Preset functions
+        function applyPreset(length, width, unit) {
+            document.getElementById('length').value = length;
+            document.getElementById('width').value = width;
+            document.getElementById('length-unit').value = unit;
+            document.getElementById('width-unit').value = unit;
+            showSuccessMessage('Preset applied successfully!');
+        }
+
+        function applyTilePreset(length, width, unit) {
+            document.getElementById('tile-length').value = length;
+            document.getElementById('tile-width').value = width;
+            document.getElementById('tile-length-unit').value = unit;
+            document.getElementById('tile-width-unit').value = unit;
+            showSuccessMessage('Tile size preset applied!');
+        }
+
+        // Save/Load/Reset functions
+        function saveCalculation() {
+            const rooms = Array.from(document.querySelectorAll('#room-list > div')).map(room => ({
+                length: room.querySelector('.room-length').value,
+                width: room.querySelector('.room-width').value
+            }));
+
+            const data = {
+                shape: currentShape,
+                length: document.getElementById('length').value,
+                width: document.getElementById('width').value,
+                radius: document.getElementById('radius').value,
+                height: document.getElementById('height').value,
+                lengthUnit: document.getElementById('length-unit').value,
+                tileLength: document.getElementById('tile-length').value,
+                tileWidth: document.getElementById('tile-width').value,
+                tileLengthUnit: document.getElementById('tile-length-unit').value,
+                tileWidthUnit: document.getElementById('tile-width-unit').value,
+                wastage: document.getElementById('wastage').value,
+                groutGap: document.getElementById('grout-gap').value,
+                tilesPerBox: document.getElementById('tiles-per-box').value,
+                tilePrice: document.getElementById('tile-price').value,
+                boxPrice: document.getElementById('box-price').value,
+                laborCost: document.getElementById('labor-cost').value,
+                multiRooms: rooms, // Save multi-room data
+                savedDate: new Date().toLocaleString()
+            };
+
+            const dataStr = JSON.stringify(data);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'tile-calculation.json';
+            link.click();
+            
+            showSuccessMessage('Project saved successfully!');
+        }
+
+        function loadCalculation() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        
+                        // Restore values
+                        currentShape = data.shape || 'rectangle';
+                        document.querySelector(`.shape-btn[data-shape="${currentShape}"]`).click();
+                        
+                        if (data.length) document.getElementById('length').value = data.length;
+                        if (data.width) document.getElementById('width').value = data.width;
+                        if (data.radius) document.getElementById('radius').value = data.radius;
+                        if (data.height) document.getElementById('height').value = data.height;
+                        if (data.lengthUnit) document.getElementById('length-unit').value = data.lengthUnit;
+                        if (data.tileLength) document.getElementById('tile-length').value = data.tileLength;
+                        if (data.tileWidth) document.getElementById('tile-width').value = data.tileWidth;
+                        if (data.tileLengthUnit) document.getElementById('tile-length-unit').value = data.tileLengthUnit;
+                        if (data.tileWidthUnit) document.getElementById('tile-width-unit').value = data.tileWidthUnit;
+
+                        if (data.wastage) {
+                            document.getElementById('wastage').value = data.wastage;
+                            document.getElementById('wastage-value').textContent = data.wastage;
+                        }
+                        if (data.groutGap) document.getElementById('grout-gap').value = data.groutGap;
+                        if (data.tilesPerBox) document.getElementById('tiles-per-box').value = data.tilesPerBox;
+                        if (data.tilePrice) document.getElementById('tile-price').value = data.tilePrice;
+                        if (data.boxPrice) document.getElementById('box-price').value = data.boxPrice;
+                        if (data.laborCost) document.getElementById('labor-cost').value = data.laborCost;
+
+                        // Restore multi-room data
+                        if (data.multiRooms && data.multiRooms.length > 0) {
+                            clearRooms();
+                            data.multiRooms.forEach(room => {
+                                addRoom();
+                                const rooms = document.querySelectorAll('#room-list > div');
+                                const lastRoom = rooms[rooms.length - 1];
+                                lastRoom.querySelector('.room-length').value = room.length;
+                                lastRoom.querySelector('.room-width').value = room.width;
+                            });
+                        }
+                        
+                        showSuccessMessage('Project loaded successfully! Saved on: ' + (data.savedDate || 'Unknown'));
+                    } catch (error) {
+                        alert('Error loading file. Please check the file format or console for details.');
+                        console.error("Load Error:", error);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function resetAll() {
+            if (confirm('Are you sure you want to reset all fields?')) {
+                document.getElementById('length').value = '';
+                document.getElementById('width').value = '';
+                document.getElementById('radius').value = '';
+                document.getElementById('height').value = '';
+                document.getElementById('tile-length').value = '24';
+                document.getElementById('tile-width').value = '24';
+                document.getElementById('wastage').value = '10';
+                document.getElementById('wastage-value').textContent = '10';
+                document.getElementById('grout-gap').value = '2';
+                document.getElementById('tiles-per-box').value = '10';
+                document.getElementById('tile-price').value = '50';
+                document.getElementById('box-price').value = '';
+                document.getElementById('labor-cost').value = '5';
+                document.getElementById('adhesive-cost').value = '800';
+                document.getElementById('grout-cost').value = '500';
+                document.getElementById('results').classList.remove('show');
+                document.getElementById('cost-breakdown').style.display = 'none';
+                document.getElementById('ratio-tip').style.display = 'none';
+                clearRooms(); // Reset multi-room calculator
+
+                // Reset shape to default rectangle
+                document.querySelector(`.shape-btn[data-shape="rectangle"]`).click();
+                
+                showSuccessMessage('All fields have been reset!');
+            }
+        }
+
+        function printResults() {
+            if (!calculationData) {
+                alert('Please calculate tiles first!');
+                return;
+            }
+            window.print();
+        }
+
+        function exportToPDF() {
+            if (!calculationData) {
+                alert('Please calculate tiles first!');
+                return;
+            }
+            showSuccessMessage('PDF export feature - Coming soon! Use Print function for now.');
+        }
+
+        function exportToExcel() {
+            if (!calculationData) {
+                alert('Please calculate tiles first!');
+                return;
+            }
+            
+            let csvContent = "Item,Quantity,Details\n";
+            csvContent += `Total Area,${document.getElementById('total-area').textContent},\n`;
+            csvContent += `Tiles Needed,${document.getElementById('tiles-needed').textContent},Without wastage\n`;
+            csvContent += `Tiles with Wastage,${document.getElementById('tiles-with-wastage').textContent},Recommended\n`;
+            csvContent += `Boxes Needed,${document.getElementById('boxes-needed').textContent},\n`;
+
+            if(document.getElementById('cost-breakdown').style.display === 'block') {
+                 csvContent += `\nCost Breakdown\n`;
+                 csvContent += `Total Tile Cost,${document.getElementById('total-tile-cost').textContent},\n`;
+                 csvContent += `Total Labor Cost,${document.getElementById('total-labor-cost').textContent},\n`;
+                 csvContent += `Total Materials Cost,${document.getElementById('total-materials-cost').textContent},\n`;
+                 csvContent += `GRAND TOTAL,${document.getElementById('grand-total').textContent},\n`;
+            }
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'tile-calculation.csv';
+            link.click();
+            
+            showSuccessMessage('Excel file downloaded successfully!');
+        }
+
+        function shareCalculation() {
+            if (!calculationData) {
+                alert('Please calculate tiles first!');
+                return;
+            }
+            
+            const shareText = `Tile Calculator Results:
+Total Area: ${document.getElementById('total-area').textContent}
+Tiles Needed (w/ Wastage): ${document.getElementById('tiles-with-wastage').textContent}
+Boxes: ${document.getElementById('boxes-needed').textContent}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Tile Calculation',
+                    text: shareText
+                }).then(() => {
+                    showSuccessMessage('Shared successfully!');
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showSuccessMessage('Copied to clipboard!');
+                });
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const msgEl = document.getElementById('success-msg');
+            msgEl.textContent = message;
+            msgEl.classList.add('show');
+            setTimeout(() => {
+                msgEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        updateFormFields();
+
+        // Add one room by default for multi-room calculator
+        setTimeout(() => {
+            if (document.getElementById('room-list').children.length === 0) {
+                addRoom();
+            }
+        }, 100);
+    </script>
+</body>
+</html>
